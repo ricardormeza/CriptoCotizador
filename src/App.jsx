@@ -1,46 +1,62 @@
 import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import styled from '@emotion/styled'
+import ImgCripto from './img/imagen-criptos.png'
+import Formulario from './components/Formulario'
+
+const Contenedor = styled.div`
+  max-width: 900px;
+  margin: 0 auto;
+  width: 90%;
+  @media (min-width: 992px){
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+  }
+`
+const Imagen = styled.img`
+  max-width: 480px;
+  width: 80%;
+  margin: 100px auto 0 auto;
+  display: block;
+
+`
+
+const Heading = styled.h1`
+  font-family: 'Lato', sans-serif;
+  color: #fff;
+  font-size: 4rem;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 80px;
+  margin-bottom: 58px;
+
+  &::after{
+    content: '';
+    width: 100px;
+    height: 6px;
+    background-color: #66a2fe;
+    display: block;
+    margin: 10px auto 0 auto;
+
+  }
+`
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className='text-3xl font-bold underline'>Hello Vite + React!</p>
-        <p>Hola mundo</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            cuenta is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-      
-    </div>
+    <Contenedor>
+      <Imagen
+        src={ImgCripto}
+        alt="imagenes de criptomonedas"
+      />
+      <div>
+        <Heading>Criptomonedas al instante</Heading>
+
+        <Formulario/>
+      </div>
+    </Contenedor>
   )
 }
 
