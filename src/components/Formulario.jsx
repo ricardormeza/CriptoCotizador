@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
+import Error from './Error'
 import useSelectMonedas from '../hooks/useSelectMonedas'
 import { monedas } from '../data/monedas'
+
 
 const InputSubmin = styled.input`
     background-color: #9497ff;
@@ -23,8 +25,9 @@ const InputSubmin = styled.input`
     }
 `
 
-const Formulario = () => {
+const Formulario = ({setMonedas}) => {
     const [criptos, setCriptos ] = useState([])
+    const [error, setError ] = useState(false)
 
     const [ moneda, SelectMonedas ] = useSelectMonedas('Elige tu moneda', monedas)
     const [ criptomoneda, SelectCriptomoneda ] = useSelectMonedas('Elige tu criptomoneda', criptos)
@@ -54,21 +57,42 @@ const Formulario = () => {
         consultarAPI();
     }, [])
     
-    
+    const handleSubmit = e => {
+        e.preventDefault()
+
+        // console.log(moneda)
+        // console.log(criptomoneda)
+        if([moneda,criptomoneda].includes('')){
+            // console.log('ERROR')
+            setError(true)
+
+            return
+        }
+        setError(false)
+        setMonedas({
+            moneda,
+            criptomoneda
+        })
+    }
 
     return (
-        <form>
-            
-            <SelectMonedas/>
-            <SelectCriptomoneda/>
-            
-            
-            
-            <InputSubmin 
-                type="submin" 
-                value="Cotizar" 
-            />
-        </form>
+        <>
+            {error && <Error>Todos los campos son obligatorios</Error>}
+                <form
+                    onSubmit={handleSubmit}
+                >
+                    
+                    <SelectMonedas/>
+                    <SelectCriptomoneda/>
+                    
+                    
+                    
+                    <InputSubmin 
+                        type="submit" 
+                        value="Cotizar" 
+                    />
+                </form>
+        </>
     )
 }
 
